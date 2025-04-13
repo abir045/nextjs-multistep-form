@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 
 const personalInfoSchema = z.object({
   fullName: z.string().min(1, "Full name is required"),
@@ -45,10 +46,7 @@ const formSchema = z
   });
 
 const MultiStep = () => {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [submitted, setSubmitted] = useState(false);
-  const [showSummary, setShowSummary] = useState(false);
-  const [formData, setFormData] = useState({
+  const defaultFormValues = {
     fullName: "",
     email: "",
     phoneNumber: "",
@@ -58,27 +56,59 @@ const MultiStep = () => {
     username: "",
     password: "",
     confirmPassword: "",
-  });
+  };
+
+  const [currentStep, setCurrentStep] = useState(1);
+  const [submitted, setSubmitted] = useState(false);
+  const [showSummary, setShowSummary] = useState(false);
+  const [formData, setFormData] = useState({ ...defaultFormValues });
 
   const {
     register,
     handleSubmit,
     trigger,
+    reset,
     getValues,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(formSchema),
     mode: "onChange",
-    defaultValues: {
-      fullName: "",
-      email: "",
-      phoneNumber: "",
-      streetAddress: "",
-      city: "",
-      zipCode: "",
-      username: "",
-      password: "",
-      confirmPassword: "",
+    defaultValues: { ...defaultFormValues },
+  });
+
+  // React Query mutation with fetch API
+  const mutation = useMutation({
+    mutationFn: async (data) => {
+      // Create a new FormData object
+      const formData = new FormData();
+
+      // Add all form fields to the FormData object
+      Object.keys(data).forEach((key) => {
+        formData.append(key, data[key]);
+      });
+
+      // For demonstration purposes, we're using a mock API endpoint
+      // In a real application, replace this URL with your actual API endpoint
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/posts",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      }
+
+      return await response.json();
+    },
+    onSuccess: (data) => {
+      console.log("Form submitted successfully", data);
+      setShowSummary(false);
+    },
+    onError: (error) => {
+      console.error("Error submitting form:", error);
     },
   });
 
@@ -118,6 +148,7 @@ const MultiStep = () => {
     console.log(formData);
     setSubmitted(true);
     setShowSummary(false);
+    mutation.mutate(data);
   };
 
   const handleFinalSubmit = async () => {
@@ -133,6 +164,14 @@ const MultiStep = () => {
 
       setShowSummary(true);
     }
+  };
+
+  const resetForm = () => {
+    // Reset both the local state and the form
+    setFormData({ ...defaultFormValues });
+    reset({ ...defaultFormValues });
+    setSubmitted(false);
+    setCurrentStep(1);
   };
 
   const renderStep = () => {
@@ -429,10 +468,7 @@ const MultiStep = () => {
           </h2>
           <p className="mb-4">Thank you for your submission.</p>
           <button
-            onClick={() => {
-              setSubmitted(false);
-              setCurrentStep(1);
-            }}
+            onClick={resetForm}
             className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
           >
             Submit Another Response
