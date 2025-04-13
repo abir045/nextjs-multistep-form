@@ -40,8 +40,10 @@ Follow these instructions to set up and run the project locally.
 
 ### Clone the Repository
 
-```git clone https://github.com/abir045/nextjs-multistep-form.git
-   cd nextjs-multistep-form
+```
+git clone https://github.com/abir045/nextjs-multistep-form.git
+cd nextjs-multistep-form
+
 ```
 
 ## Install Dependencies
