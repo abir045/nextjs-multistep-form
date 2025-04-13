@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Next.js Multi-Step Form
+
+A responsive and user-friendly multi-step form built with Next.js, React Hook Form, Zod, and Tailwind CSS. This application guides users through a series of steps to collect personal information, address details, and account setup, ensuring data validation at each stage.
+
+## Features
+
+- Multi-Step Navigation: Seamlessly navigate through different form sections.
+
+- Form Validation: Robust validation using Zod integrated with React Hook Form.
+
+- Responsive Design: Tailwind CSS ensures the form is mobile-friendly and visually appealing.
+
+- Dark Mode Support: Toggle between light and dark themes for better accessibility.
+
+- Data Submission: Simulated form submission using a mock API endpoint.
+
+## Technologies Used
+
+- Multi-Step Navigation: Seamlessly navigate through different form sections.
+
+- Form Validation: Robust validation using Zod integrated with React Hook Form.
+
+- Responsive Design: Tailwind CSS ensures the form is mobile-friendly and visually appealing.
+
+- Dark Mode Support: Toggle between light and dark themes for better accessibility.
+
+- Data Submission: Simulated form submission using a mock API endpoint.
 
 ## Getting Started
 
-First, run the development server:
+Follow these instructions to set up and run the project locally.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Prerequisites
+
+- Node.js (v14 or later)
+
+- npm or pnpm or yarn
+
+## Installation
+
+### Clone the Repository
+
+```git clone https://github.com/abir045/nextjs-multistep-form.git
+   cd nextjs-multistep-form
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Install Dependencies
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Using npm:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`npm install`
 
-## Learn More
+### Or using pnpm
 
-To learn more about Next.js, take a look at the following resources:
+`pnpm install`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Run the Development Server
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Using npm:
 
-## Deploy on Vercel
+`npm run dev`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Or using pnpm:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`pnpm dev`
+
+### Access the Application
+
+### Open your browser and navigate to:
+
+- http://localhost:3000
