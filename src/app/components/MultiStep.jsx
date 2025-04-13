@@ -103,7 +103,7 @@ const MultiStep = () => {
       });
 
       // For demonstration purposes, we're using a mock API endpoint
-      // In a real application, replace this URL with your actual API endpoint
+
       const response = await fetch(
         "https://jsonplaceholder.typicode.com/posts",
         {
@@ -494,7 +494,7 @@ const MultiStep = () => {
   }
 
   return (
-    <div className="dark:text-white  dark:bg-gray-900">
+    <div className="dark:text-white  dark:bg-gray-900 h-screen">
       <div className="flex justify-center pt-24">
         <button
           onClick={toggleDarkMode}
