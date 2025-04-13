@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import { MdDarkMode } from "react-icons/md";
+import { CiLight } from "react-icons/ci";
 
 const personalInfoSchema = z.object({
   fullName: z.string().min(1, "Full name is required"),
@@ -62,6 +64,7 @@ const MultiStep = () => {
   const [submitted, setSubmitted] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
   const [formData, setFormData] = useState({ ...defaultFormValues });
+  const [darkMode, setDarkMode] = useState(false);
 
   const {
     register,
@@ -75,6 +78,18 @@ const MultiStep = () => {
     mode: "onChange",
     defaultValues: { ...defaultFormValues },
   });
+
+  const toggleDarkMode = () => {
+    setDarkMode((prev) => {
+      const newMode = !prev;
+      if (newMode) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+      return newMode;
+    });
+  };
 
   // React Query mutation with fetch API
   const mutation = useMutation({
@@ -245,7 +260,7 @@ const MultiStep = () => {
         );
       case 2:
         return (
-          <div className="space-y-4">
+          <div className="space-y-4 ">
             <h2 className="text-xl font-bold">Step 2: Address Details</h2>
             <div>
               <label
@@ -391,8 +406,8 @@ const MultiStep = () => {
   const renderSummary = () => {
     const data = getValues();
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full max-h-screen overflow-y-auto">
+      <div className="fixed inset-0 bg-black  text-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white dark:text-white  dark:bg-gray-900 p-6 rounded-lg shadow-lg max-w-md w-full max-h-screen overflow-y-auto">
           <h2 className="text-2xl font-bold mb-4">Review Your Information</h2>
 
           <div className="mb-6">
@@ -461,7 +476,7 @@ const MultiStep = () => {
 
   if (submitted) {
     return (
-      <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+      <div className="max-w-7xl mx-auto p-6 bg-white dark:text-white  dark:bg-gray-900 rounded-lg shadow-md">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-green-600 mb-4">
             Form Submitted Successfully!
@@ -479,12 +494,20 @@ const MultiStep = () => {
   }
 
   return (
-    <div>
-      <h1 className="text-center text-3xl font-bold mt-30">
+    <div className="dark:text-white  dark:bg-gray-900">
+      <div className="flex justify-center pt-24">
+        <button
+          onClick={toggleDarkMode}
+          className="bg-gray-200 dark:bg-gray-700  py-2 px-4 rounded shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+        >
+          {darkMode ? <CiLight size={30} /> : <MdDarkMode size={30} />}
+        </button>
+      </div>
+      <h1 className="text-center text-3xl font-bold pt-30">
         Please fill up the Information
       </h1>
 
-      <div className="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md mt-20">
+      <div className="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md mt-20 dark:bg-gray-900 dark:text-white">
         <div className="mb-6">
           <div className="flex items-center justify-between mb-2">
             {[1, 2, 3].map((step) => (
